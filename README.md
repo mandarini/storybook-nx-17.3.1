@@ -23,7 +23,7 @@ nx storybook ngapp2
 Angular App 3:
 
 ```bash
-nx storybook ngapp2
+nx storybook ngapp3
 ```
 
 React App 1:
