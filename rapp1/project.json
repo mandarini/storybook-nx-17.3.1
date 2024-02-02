@@ -1,0 +1,116 @@
+{
+  "name": "rapp1",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "rapp1/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/rapp1"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "rapp1:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "rapp1:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "rapp1:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "rapp1:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "rapp1:build:development"
+        },
+        "production": {
+          "buildTarget": "rapp1:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../coverage/rapp1"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "rapp1:build"
+      }
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "rapp1/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/rapp1",
+        "configDir": "rapp1/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c rapp1/.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "rapp1:build-storybook",
+        "staticFilePath": "dist/storybook/rapp1"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "rapp1:build-storybook:ci"
+        }
+      }
+    }
+  },
+  "tags": []
+}

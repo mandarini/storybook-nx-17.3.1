@@ -1,0 +1,29 @@
+{
+  "name": "ngapp3-e2e",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "ngapp3-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "ngapp3-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "ngapp3:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "ngapp3:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "ngapp3:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["ngapp3"]
+}
